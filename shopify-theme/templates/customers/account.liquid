@@ -1,0 +1,28 @@
+<section class="py-16 sm:py-24">
+  <div class="container-brand max-w-3xl mx-auto">
+    <div class="flex items-center justify-between mb-10">
+      <h1 class="font-serif text-3xl text-ink">Hola, {{ customer.first_name }}</h1>
+      <a href="{{ routes.account_logout_url }}" class="text-sm text-ink-soft underline">Cerrar sesión</a>
+    </div>
+
+    <h2 class="font-serif text-xl text-ink mb-4">Tus pedidos</h2>
+    {% if customer.orders.size > 0 %}
+      <div class="creme-cart-table">
+        {% for order in customer.orders %}
+          <div class="creme-cart-row">
+            <div class="creme-cart-info">
+              <a href="{{ order.customer_url }}" class="font-serif text-lg text-ink">Pedido {{ order.name }}</a>
+              <p class="text-xs text-ink-soft mt-1">{{ order.created_at | date: '%d/%m/%Y' }} · {{ order.financial_status_label }}</p>
+            </div>
+            <p class="creme-cart-line-total">{{ order.total_price | money }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-ink-soft">Todavía no tienes pedidos.</p>
+    {% endif %}
+
+    <h2 class="font-serif text-xl text-ink mt-12 mb-4">Direcciones</h2>
+    <a href="{{ routes.account_addresses_url }}" class="btn-secondary">Gestionar direcciones</a>
+  </div>
+</section>

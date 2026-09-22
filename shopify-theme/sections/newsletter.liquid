@@ -1,0 +1,48 @@
+<section id="newsletter" class="py-20 sm:py-28">
+  <div class="container-brand">
+    <div class="relative overflow-hidden rounded-[2rem] bg-ink px-6 py-16 sm:px-16 sm:py-20 text-center fade-up">
+      <div aria-hidden="true" class="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-camel/10 blur-3xl"></div>
+      <div aria-hidden="true" class="absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-olive/20 blur-3xl"></div>
+
+      <p class="eyebrow !text-camel-light mb-4 relative">{{ section.settings.eyebrow }}</p>
+      <h2 class="relative font-serif text-3xl sm:text-4xl text-cream-soft text-balance">{{ section.settings.heading }}</h2>
+      <p class="relative mt-4 max-w-md mx-auto text-sm leading-relaxed text-cream-soft/70">{{ section.settings.body }}</p>
+
+      {% form 'customer', id: 'newsletter-form', class: 'relative mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+
+        {% if form.posted_successfully? %}
+          <p class="font-serif text-lg italic text-camel-light">{{ section.settings.success_message }}</p>
+        {% else %}
+          {% if form.errors %}
+            <p class="text-sm text-camel-light">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+          {% endif %}
+          <input
+            type="email"
+            name="contact[email]"
+            required
+            placeholder="tu@email.com"
+            class="w-full sm:flex-1 rounded-full border border-cream-soft/25 bg-cream-soft/10 px-5 py-3.5 text-sm text-cream-soft placeholder:text-cream-soft/40 outline-none focus:border-camel-light transition-colors"
+          >
+          <button type="submit" class="w-full sm:w-auto rounded-full bg-camel-light px-7 py-3.5 text-sm font-medium text-ink hover:bg-cream-soft transition-colors">
+            {{ section.settings.button_label }}
+          </button>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Únete" },
+    { "type": "text", "id": "heading", "label": "Titular", "default": "Formar parte de la familia" },
+    { "type": "textarea", "id": "body", "label": "Texto", "default": "Novedades, lanzamientos y algún que otro contenido pensado para quienes, como nosotros, saben que un perro cambia la forma de ver la vida." },
+    { "type": "text", "id": "button_label", "label": "Texto del botón", "default": "Unirme" },
+    { "type": "text", "id": "success_message", "label": "Mensaje de éxito", "default": "Gracias por unirte — ya sois familia CRÈME." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

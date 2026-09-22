@@ -1,0 +1,24 @@
+{%- comment -%}
+  Renders a small line icon.
+  Usage: {% render 'icon', name: 'search' %}
+  Available names: search, user, bag, heart, instagram, tiktok, mail, shield
+{%- endcomment -%}
+
+{%- case name -%}
+  {%- when 'search' -%}
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" stroke-linecap="round"/></svg>
+  {%- when 'user' -%}
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c1.6-3.6 5-5.5 7.5-5.5s5.9 1.9 7.5 5.5" stroke-linecap="round"/></svg>
+  {%- when 'bag' -%}
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 8h12l-1 12H7L6 8Z" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke-linecap="round"/></svg>
+  {%- when 'heart' -%}
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10.1-9.1C.4 8.9 1.7 5.4 5 4.4c2-.6 4 .1 5 1.9 1-1.8 3-2.5 5-1.9 3.3 1 4.6 4.5 3.1 7.5C19.5 16.4 12 21 12 21Z"/></svg>
+  {%- when 'instagram' -%}
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+  {%- when 'tiktok' -%}
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 3h2.4c.3 1.9 1.6 3.3 3.6 3.6v2.5c-1.4 0-2.7-.4-3.7-1.1v6.4c0 3.2-2.4 5.6-5.6 5.6a5.5 5.5 0 0 1-1-10.9v2.5a3 3 0 1 0 3.6 2.9V3Z"/></svg>
+  {%- when 'mail' -%}
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m4.5 7 7.5 6 7.5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  {%- when 'shield' -%}
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3 4 7v5c0 5 3.4 8.7 8 9 4.6-.3 8-4 8-9V7l-8-4Z" stroke-linejoin="round"/></svg>
+{%- endcase -%}

@@ -1,0 +1,79 @@
+<footer class="bg-cream-deep/70 pt-16 pb-8">
+  <div class="container-brand">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-10">
+      <div class="col-span-2">
+        <a href="{{ routes.root_url }}" class="flex items-center gap-3">
+          {% if section.settings.logo != blank %}
+            <img src="{{ section.settings.logo | image_url: width: 112 }}" alt="{{ shop.name }}" width="56" height="56" class="h-14 w-14 rounded-full object-cover">
+          {% else %}
+            <img src="{{ 'creme-logo-circle.png' | asset_url }}" alt="{{ shop.name }}" class="h-14 w-14 rounded-full object-cover">
+          {% endif %}
+          <span class="font-serif text-2xl text-ink">{{ shop.name }}</span>
+        </a>
+        <p class="mt-5 max-w-xs text-[13.5px] leading-relaxed text-ink-soft">{{ section.settings.tagline }}</p>
+        <div class="mt-6 flex items-center gap-4 text-ink">
+          {% if section.settings.instagram_url != blank %}
+            <a href="{{ section.settings.instagram_url }}" aria-label="Instagram" class="hover:text-camel-deep transition-colors">{% render 'icon', name: 'instagram' %}</a>
+          {% endif %}
+          {% if section.settings.tiktok_url != blank %}
+            <a href="{{ section.settings.tiktok_url }}" aria-label="TikTok" class="hover:text-camel-deep transition-colors">{% render 'icon', name: 'tiktok' %}</a>
+          {% endif %}
+          {% if section.settings.contact_email != blank %}
+            <a href="mailto:{{ section.settings.contact_email }}" aria-label="Email" class="hover:text-camel-deep transition-colors">{% render 'icon', name: 'mail' %}</a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% for block in section.blocks %}
+        {% if block.type == 'link_column' %}
+          <div {{ block.shopify_attributes }}>
+            <h4 class="text-xs font-semibold tracking-widest uppercase text-ink mb-4">{{ block.settings.title }}</h4>
+            <ul class="space-y-2.5">
+              {% if block.settings.menu != blank %}
+                {% for link in block.settings.menu.links %}
+                  <li><a href="{{ link.url }}" class="text-[13.5px] text-ink-soft hover:text-camel-deep transition-colors">{{ link.title }}</a></li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="mt-14 pt-6 border-t border-cream-line flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-ink-soft">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Todos los derechos reservados.</p>
+      <p>{{ section.settings.footer_note }}</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pie de página",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "textarea", "id": "tagline", "label": "Descripción breve", "default": "Arneses y accesorios diseñados para quienes saben que su perro es, sencillamente, familia." },
+    { "type": "url", "id": "instagram_url", "label": "Instagram" },
+    { "type": "url", "id": "tiktok_url", "label": "TikTok" },
+    { "type": "text", "id": "contact_email", "label": "Email de contacto" },
+    { "type": "text", "id": "footer_note", "label": "Nota final", "default": "Hecho con cariño para quienes pasean acompañados." }
+  ],
+  "blocks": [
+    {
+      "type": "link_column",
+      "name": "Columna de enlaces",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título columna", "default": "Ayuda" },
+        { "type": "link_list", "id": "menu", "label": "Menú" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "link_column", "settings": { "title": "Ayuda" } },
+      { "type": "link_column", "settings": { "title": "Marca" } },
+      { "type": "link_column", "settings": { "title": "Legal" } }
+    ]
+  }
+}
+{% endschema %}

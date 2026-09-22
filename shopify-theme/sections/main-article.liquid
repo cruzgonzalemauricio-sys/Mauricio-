@@ -1,0 +1,18 @@
+<section class="py-16 sm:py-24">
+  <div class="container-brand max-w-2xl mx-auto">
+    <p class="eyebrow mb-4 text-center">{{ article.published_at | date: '%d %B %Y' }}</p>
+    <h1 class="font-serif text-3xl sm:text-4xl text-ink text-center mb-10">{{ article.title }}</h1>
+    {% if article.image %}
+      <div class="aspect-[16/9] overflow-hidden rounded-2xl mb-10">
+        <img src="{{ article.image | image_url: width: 1200 }}" alt="{{ article.title | escape }}" width="1200" height="675" class="h-full w-full object-cover">
+      </div>
+    {% endif %}
+    <div class="text-[15px] leading-relaxed text-ink-soft creme-richtext">
+      {{ article.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Artículo", "settings": [] }
+{% endschema %}

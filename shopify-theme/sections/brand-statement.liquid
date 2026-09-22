@@ -1,0 +1,52 @@
+<section class="py-20 sm:py-28">
+  <div class="container-brand">
+    <div class="mx-auto max-w-3xl text-center fade-up">
+      <p class="eyebrow mb-6">{{ section.settings.eyebrow }}</p>
+      <h2 class="font-serif text-3xl sm:text-4xl leading-tight text-ink text-balance">
+        {{ section.settings.heading }}
+      </h2>
+      <p class="mt-7 text-[15px] leading-relaxed text-ink-soft max-w-xl mx-auto">
+        {{ section.settings.body }}
+      </p>
+    </div>
+
+    <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10">
+      {% for block in section.blocks %}
+        <div class="text-center sm:text-left fade-up" style="transition-delay: {{ forloop.index0 | times: 80 }}ms" {{ block.shopify_attributes }}>
+          <p class="font-serif text-xl text-ink">{{ block.settings.label }}</p>
+          <p class="mt-1 text-xs text-ink-soft">{{ block.settings.detail }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Declaración de marca",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Nuestra filosofía" },
+    { "type": "textarea", "id": "heading", "label": "Titular", "default": "«Diseñamos pensando en ellos, porque forman parte de nosotros.»" },
+    { "type": "textarea", "id": "body", "label": "Texto", "default": "No hacemos accesorios para mascotas. Construimos una marca alrededor del vínculo entre las personas y sus perros. Cada arnés CRÈME está pensado para acompañar, no solo para sujetar: para el paseo de las ocho de la mañana, para la escapada del sábado y para todos los momentos pequeños que, sumados, son la vida juntos." }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Valor",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Título", "default": "Familia" },
+        { "type": "text", "id": "detail", "label": "Descripción", "default": "El vínculo primero" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "value", "settings": { "label": "Familia", "detail": "El vínculo primero" } },
+      { "type": "value", "settings": { "label": "Diseño", "detail": "Estética cuidada" } },
+      { "type": "value", "settings": { "label": "Confianza", "detail": "Ajuste seguro" } },
+      { "type": "value", "settings": { "label": "Aventura", "detail": "Listos para salir" } }
+    ]
+  },
+  "presets": [{ "name": "Declaración de marca" }]
+}
+{% endschema %}

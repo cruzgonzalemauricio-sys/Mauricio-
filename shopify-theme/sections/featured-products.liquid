@@ -1,0 +1,155 @@
+<section id="productos" class="py-20 sm:py-28 bg-cream-deep/60">
+  <div class="container-brand">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
+      <div class="fade-up">
+        <p class="eyebrow mb-4">{{ section.settings.eyebrow }}</p>
+        <h2 class="font-serif text-3xl sm:text-4xl text-ink">{{ section.settings.heading }}</h2>
+      </div>
+      <div class="fade-up">
+        <p class="max-w-sm text-sm leading-relaxed text-ink-soft">{{ section.settings.subheading }}</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-7">
+      {% if section.settings.collection != blank %}
+        {% assign products = section.settings.collection.products | limit: section.settings.products_to_show %}
+        {% for product in products %}
+          <div class="group fade-up" style="transition-delay: {{ forloop.index0 | times: 120 }}ms">
+            <a href="{{ product.url }}" class="relative block overflow-hidden rounded-[1.75rem] bg-cream-soft shadow-card">
+              <div class="aspect-[4/5] overflow-hidden">
+                {% if product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 800 }}"
+                    alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                    width="800" height="1000"
+                    loading="lazy"
+                    class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                  >
+                {% endif %}
+              </div>
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent p-5 pt-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <span class="text-cream-soft text-xs tracking-wide">{{ product.price | money }}</span>
+              </div>
+            </a>
+
+            <div class="mt-5 flex items-start justify-between gap-3">
+              <div>
+                <h3 class="font-serif text-xl text-ink">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+                <p class="mt-1.5 text-[13px] leading-relaxed text-ink-soft max-w-[26ch]">
+                  {{ product.description | strip_html | truncatewords: 16 }}
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                {% assign color_option = product.options_with_values | where: 'name', 'Color' | first %}
+                {% if color_option %}
+                  {% for value in color_option.values limit: 3 %}
+                    <span class="text-[11px] text-ink-soft">{{ value }}{% unless forloop.last %},{% endunless %}</span>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <a href="{{ product.url }}" class="text-[13px] font-medium text-ink border-b border-camel-deep/60 hover:border-ink transition-colors">
+                Ver producto
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for block in section.blocks %}
+          <div class="group fade-up" style="transition-delay: {{ forloop.index0 | times: 120 }}ms" {{ block.shopify_attributes }}>
+            <div class="relative overflow-hidden rounded-[1.75rem] bg-cream-soft shadow-card">
+              <div class="aspect-[4/5] overflow-hidden">
+                {% if block.settings.image != blank %}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 800 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    width="800" height="1000"
+                    loading="lazy"
+                    class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                  >
+                {% endif %}
+              </div>
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent p-5 pt-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <span class="text-cream-soft text-xs tracking-wide">{{ block.settings.price }}</span>
+              </div>
+            </div>
+
+            <div class="mt-5 flex items-start justify-between gap-3">
+              <div>
+                <h3 class="font-serif text-xl text-ink">{{ block.settings.title }}</h3>
+                <p class="mt-1.5 text-[13px] leading-relaxed text-ink-soft max-w-[26ch]">{{ block.settings.description }}</p>
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                {% if block.settings.color_1 != blank %}
+                  <span class="h-4 w-4 rounded-full border border-ink/10" style="background-color:{{ block.settings.color_1 }}"></span>
+                {% endif %}
+                {% if block.settings.color_2 != blank %}
+                  <span class="h-4 w-4 rounded-full border border-ink/10" style="background-color:{{ block.settings.color_2 }}"></span>
+                {% endif %}
+              </div>
+              <a href="{{ block.settings.link | default: '#' }}" class="text-[13px] font-medium text-ink border-b border-camel-deep/60 hover:border-ink transition-colors">
+                Ver producto
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if section.settings.view_all_link != blank %}
+      <div class="mt-14 text-center fade-up">
+        <a href="{{ section.settings.view_all_link }}" class="btn-secondary">{{ section.settings.view_all_label }}</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Productos destacados",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Colección" },
+    { "type": "text", "id": "heading", "label": "Titular", "default": "Arneses pensados para ir juntos" },
+    { "type": "textarea", "id": "subheading", "label": "Subtítulo", "default": "Cada modelo está pensado para acompañar sin incomodar: cómodo para ellos, bonito de llevar para vosotros." },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colección de productos",
+      "info": "Si seleccionas una colección, se muestran sus productos reales en lugar de los bloques de ejemplo de abajo."
+    },
+    { "type": "range", "id": "products_to_show", "label": "Nº de productos", "min": 3, "max": 9, "step": 1, "default": 3 },
+    { "type": "text", "id": "view_all_label", "label": "Texto botón inferior", "default": "Ver toda la colección" },
+    { "type": "url", "id": "view_all_link", "label": "Enlace botón inferior" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Producto de ejemplo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagen" },
+        { "type": "text", "id": "title", "label": "Nombre", "default": "Arnés Tartán" },
+        { "type": "textarea", "id": "description", "label": "Descripción", "default": "Nuestro diseño más querido: un estampado de cuadros cálido para los paseos de cada día." },
+        { "type": "text", "id": "price", "label": "Precio (texto libre)", "default": "Desde 39€ (ejemplo)" },
+        { "type": "color", "id": "color_1", "label": "Color 1", "default": "#9C8258" },
+        { "type": "color", "id": "color_2", "label": "Color 2", "default": "#EDE4CF" },
+        { "type": "url", "id": "link", "label": "Enlace" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "product", "settings": { "title": "Arnés Tartán", "description": "Nuestro diseño más querido: un estampado de cuadros cálido para los paseos de cada día.", "price": "Desde 39€ (ejemplo)" } },
+      { "type": "product", "settings": { "title": "Arnés Pata de Camel", "description": "Un print propio de huellas sobre tono camel, a juego con correa y bolsa dispensadora.", "price": "Desde 39€ (ejemplo)" } },
+      { "type": "product", "settings": { "title": "Arnés Verde Oliva", "description": "Líneas limpias y un verde profundo para quienes prefieren lo discreto y lo resistente.", "price": "Desde 39€ (ejemplo)" } }
+    ]
+  },
+  "presets": [{ "name": "Productos destacados" }]
+}
+{% endschema %}

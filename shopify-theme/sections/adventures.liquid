@@ -1,0 +1,64 @@
+<section class="py-20 sm:py-28">
+  <div class="container-brand">
+    <div class="max-w-xl mb-14 fade-up">
+      <p class="eyebrow mb-4">{{ section.settings.eyebrow }}</p>
+      <h2 class="font-serif text-3xl sm:text-4xl text-ink text-balance">{{ section.settings.heading }}</h2>
+      <p class="mt-5 text-[15px] leading-relaxed text-ink-soft">{{ section.settings.body }}</p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 sm:grid-rows-2 gap-4 sm:gap-5">
+      {% for block in section.blocks %}
+        <div
+          class="group relative overflow-hidden rounded-2xl fade-up {% if forloop.index0 == 0 %}col-span-2 sm:col-span-1 sm:row-span-2{% endif %}"
+          style="transition-delay: {{ forloop.index0 | times: 90 }}ms"
+          {{ block.shopify_attributes }}
+        >
+          <div class="aspect-[4/5] sm:aspect-auto sm:h-full">
+            {% if block.settings.image != blank %}
+              <img
+                src="{{ block.settings.image | image_url: width: 900 }}"
+                alt="{{ block.settings.label | escape }}"
+                width="900" height="1125"
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              >
+            {% endif %}
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/0 to-transparent"></div>
+          <span class="absolute bottom-4 left-4 font-serif italic text-cream-soft text-lg">{{ block.settings.label }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Juntos en cada aventura",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Estilo de vida" },
+    { "type": "text", "id": "heading", "label": "Titular", "default": "Juntos en cada aventura" },
+    { "type": "textarea", "id": "body", "label": "Texto", "default": "En casa, en la calle o de viaje: el arnés que elegís los acompaña en cualquier momento, porque la vida junto a ellos pasa sobre todo en lo cotidiano." }
+  ],
+  "blocks": [
+    {
+      "type": "moment",
+      "name": "Momento",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagen" },
+        { "type": "text", "id": "label", "label": "Etiqueta", "default": "Paseo" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "moment", "settings": { "label": "Compañía" } },
+      { "type": "moment", "settings": { "label": "Paseo" } },
+      { "type": "moment", "settings": { "label": "En familia" } },
+      { "type": "moment", "settings": { "label": "Hogar" } },
+      { "type": "moment", "settings": { "label": "Cada día" } }
+    ]
+  },
+  "presets": [{ "name": "Juntos en cada aventura" }]
+}
+{% endschema %}

@@ -1,0 +1,49 @@
+<section id="guia-tallas" class="py-20 sm:py-28 bg-ink text-cream-soft">
+  <div class="container-brand">
+    <div class="max-w-xl mb-16 fade-up">
+      <p class="eyebrow !text-camel-light mb-4">{{ section.settings.eyebrow }}</p>
+      <h2 class="font-serif text-3xl sm:text-4xl text-balance">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
+      {% for block in section.blocks %}
+        <div class="fade-up" style="transition-delay: {{ forloop.index0 | times: 80 }}ms" {{ block.shopify_attributes }}>
+          <div class="text-camel-light">{% render 'icon', name: 'shield' %}</div>
+          <h3 class="mt-4 font-serif text-lg">{{ block.settings.title }}</h3>
+          <p class="mt-2 text-[13.5px] leading-relaxed text-cream-soft/70 max-w-[32ch]">{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Por qué CRÈME",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Por qué CRÈME" },
+    { "type": "text", "id": "heading", "label": "Titular", "default": "Un arnés en el que confiar, cada día" }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Razón",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Comodidad" },
+        { "type": "textarea", "id": "text", "label": "Texto", "default": "Materiales suaves y transpirables, pensados para llevarlo puesto horas sin molestar." }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "reason", "settings": { "title": "Comodidad", "text": "Materiales suaves y transpirables, pensados para llevarlo puesto horas sin molestar." } },
+      { "type": "reason", "settings": { "title": "Ajuste a medida", "text": "Varios puntos de regulación para que quede firme sin apretar, sea cual sea su forma." } },
+      { "type": "reason", "settings": { "title": "Seguridad", "text": "Cierres reforzados y enganches pensados para caminar tranquilos, en la ciudad o en el campo." } },
+      { "type": "reason", "settings": { "title": "Diseño cuidado", "text": "Estampados propios y colores atemporales: un accesorio que también os gusta llevar a vosotros." } },
+      { "type": "reason", "settings": { "title": "Resistencia", "text": "Confeccionados para el uso diario, del parque a la lluvia y de la lluvia a casa." } },
+      { "type": "reason", "settings": { "title": "Pensado para el día a día", "text": "Fácil de poner y quitar, para que el momento antes del paseo sea siempre sencillo." } }
+    ]
+  },
+  "presets": [{ "name": "Por qué CRÈME" }]
+}
+{% endschema %}

@@ -1,0 +1,54 @@
+<section class="py-20 sm:py-28 bg-cream-deep/60">
+  <div class="container-brand">
+    <div class="max-w-xl mx-auto text-center mb-14 fade-up">
+      <p class="eyebrow mb-4">{{ section.settings.eyebrow }}</p>
+      <h2 class="font-serif text-3xl sm:text-4xl text-ink">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7">
+      {% for block in section.blocks %}
+        <div class="rounded-2xl bg-cream-soft p-8 shadow-card flex flex-col fade-up" style="transition-delay: {{ forloop.index0 | times: 100 }}ms" {{ block.shopify_attributes }}>
+          <span class="font-serif text-4xl text-camel-light leading-none">&ldquo;</span>
+          <p class="mt-3 flex-1 text-[14.5px] leading-relaxed text-ink-soft italic">{{ block.settings.quote }}</p>
+          <div class="mt-6 pt-5 border-t border-cream-line">
+            <p class="text-sm font-medium text-ink">{{ block.settings.name }}</p>
+            <p class="text-xs text-ink-soft mt-0.5">{{ block.settings.pet }}</p>
+            {% if block.settings.is_placeholder %}
+              <p class="mt-2 text-[10px] uppercase tracking-widest text-camel-deep/70">Placeholder — testimonio de ejemplo</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonios",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Familias CRÈME" },
+    { "type": "text", "id": "heading", "label": "Titular", "default": "Lo que cuentan quienes ya pasean con nosotros" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonio",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Cita" },
+        { "type": "text", "id": "name", "label": "Nombre / cliente" },
+        { "type": "text", "id": "pet", "label": "Perro y raza" },
+        { "type": "checkbox", "id": "is_placeholder", "label": "Marcar como ejemplo (placeholder)", "default": true }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "testimonial", "settings": { "quote": "Desde que tiene el arnés CRÈME, Milo se deja poner el arnés solo con verlo. Se nota que está pensado para que estén cómodos de verdad.", "name": "Ejemplo de testimonio", "pet": "Milo · Caniche toy" } },
+      { "type": "testimonial", "settings": { "quote": "Lo que más me gusta es que no parece un accesorio de tienda de mascotas: es bonito, combina con todo y se ve que está bien hecho.", "name": "Ejemplo de testimonio", "pet": "Nala · Bichón" } },
+      { "type": "testimonial", "settings": { "quote": "Viajamos mucho con ella y este arnés ha aguantado playa, montaña y ciudad sin perder color. Y encima, precioso en fotos.", "name": "Ejemplo de testimonio", "pet": "Coco · Mestiza" } }
+    ]
+  },
+  "presets": [{ "name": "Testimonios" }]
+}
+{% endschema %}

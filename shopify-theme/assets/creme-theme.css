@@ -1,0 +1,235 @@
+/* Extra rules on top of creme-base.css (the frozen Tailwind build) —
+   only things that couldn't come from the React source: real Shopify
+   buttons, form resets, and small a11y helpers. */
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.875rem 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+
+.btn-primary {
+  background-color: var(--color-ink);
+  color: var(--color-cream-soft);
+  box-shadow: 0 10px 30px -12px rgba(42, 50, 71, 0.55);
+}
+.btn-primary:hover {
+  background-color: var(--color-ink-soft);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(42, 50, 71, 0.3);
+  color: var(--color-ink);
+}
+.btn-secondary:hover {
+  border-color: var(--color-ink);
+  background-color: var(--color-ink);
+  color: var(--color-cream-soft);
+}
+
+.skip-to-content-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-ink);
+  color: var(--color-cream-soft);
+  padding: 0.75rem 1.25rem;
+  z-index: 999;
+  border-radius: 0 0 0.5rem 0;
+  transition: top 0.2s ease;
+}
+.skip-to-content-link:focus {
+  top: 0;
+}
+
+/* Header state toggled by creme-theme.js */
+#site-header.is-scrolled {
+  background-color: rgba(251, 249, 244, 0.9);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 0 0 rgba(42, 50, 71, 0.08);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+#site-header:not(.is-scrolled) {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+#site-header.is-scrolled [data-header-logo] {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+[data-mobile-menu].is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+[data-bar-1].is-open { transform: translateY(3.5px) rotate(45deg); }
+[data-bar-2].is-open { opacity: 0; }
+[data-bar-3].is-open { transform: translateY(-3.5px) rotate(-45deg); }
+
+/* Newsletter / customer form resets (Shopify wraps forms in extra markup) */
+#newsletter-form { width: 100%; }
+#newsletter-form input[type='email']::placeholder { color: inherit; opacity: 0.4; }
+
+/* ---- Secondary pages: product, cart, search, account ---- */
+/* These reuse the brand's design tokens (colors/fonts) but define their
+   own small set of classes rather than guessing at Tailwind utilities
+   that may not exist in the frozen creme-base.css build. */
+
+.creme-option {
+  margin-bottom: 1.25rem;
+}
+.creme-option label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  margin-bottom: 0.5rem;
+}
+.creme-select,
+.creme-qty {
+  width: 100%;
+  border: 1px solid var(--color-cream-line);
+  background: var(--color-cream-soft);
+  color: var(--color-ink);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+}
+.creme-select:focus,
+.creme-qty:focus {
+  outline: none;
+  border-color: var(--color-camel);
+}
+.creme-qty {
+  max-width: 6rem;
+}
+
+.creme-product-form {
+  margin-top: 2rem;
+}
+
+.creme-product-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.creme-thumb-row {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+}
+.creme-thumb {
+  flex: 0 0 auto;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--color-cream-line);
+  padding: 0;
+  cursor: pointer;
+  background: none;
+}
+.creme-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.creme-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background: var(--color-camel-deep);
+  color: var(--color-cream-soft);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+}
+
+.creme-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  font-size: 0.85rem;
+  color: var(--color-ink-soft);
+}
+.creme-pagination a {
+  color: var(--color-ink);
+  text-decoration: underline;
+}
+
+.creme-cart-table {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.creme-cart-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-cream-line);
+}
+.creme-cart-thumb {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 0.75rem;
+  object-fit: cover;
+}
+.creme-cart-info a {
+  text-decoration: none;
+}
+.creme-cart-line-total {
+  font-weight: 500;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+.creme-cart-summary {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-cream-line);
+  text-align: right;
+}
+
+.creme-search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.creme-richtext p { margin-bottom: 1rem; }
+.creme-richtext a { color: var(--color-camel-deep); text-decoration: underline; }
+.creme-richtext ul, .creme-richtext ol { margin: 1rem 0 1rem 1.25rem; }
+
+@media (max-width: 640px) {
+  .creme-cart-row {
+    grid-template-columns: auto 1fr;
+    row-gap: 0.5rem;
+  }
+}

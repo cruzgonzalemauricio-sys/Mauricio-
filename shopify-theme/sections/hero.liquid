@@ -1,0 +1,103 @@
+<section id="inicio" class="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-24">
+  <div aria-hidden="true" class="absolute -top-24 -right-32 h-[420px] w-[420px] rounded-full bg-camel-light/40 blur-3xl"></div>
+  <div aria-hidden="true" class="absolute top-40 -left-40 h-[360px] w-[360px] rounded-full bg-olive/10 blur-3xl"></div>
+
+  <div class="container-brand relative grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+    <div class="lg:col-span-5 order-2 lg:order-1">
+      <p class="eyebrow mb-6">{{ section.settings.eyebrow }}</p>
+      <h1 class="font-serif text-[2.6rem] leading-[1.08] sm:text-6xl sm:leading-[1.05] text-ink text-balance">
+        {%- capture newline %}
+{% endcapture -%}
+        {%- assign heading_lines = section.settings.heading | split: newline -%}
+        {%- for line in heading_lines -%}
+          {%- if forloop.last -%}
+            <span class="italic text-camel-deep">{{ line | strip }}</span>
+          {%- else -%}
+            {{ line | strip }}<br>
+          {%- endif -%}
+        {%- endfor -%}
+      </h1>
+      <p class="mt-7 max-w-md text-[15px] leading-relaxed text-ink-soft">
+        {{ section.settings.subheading }}
+      </p>
+
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+        {% if section.settings.primary_link != blank %}
+          <a href="{{ section.settings.primary_link }}" class="btn-primary">{{ section.settings.primary_label }}</a>
+        {% endif %}
+        {% if section.settings.secondary_link != blank %}
+          <a href="{{ section.settings.secondary_link }}" class="btn-secondary">{{ section.settings.secondary_label }}</a>
+        {% endif %}
+      </div>
+
+      <div class="mt-14 flex items-center gap-8 border-t border-cream-line pt-6">
+        <div>
+          <p class="font-serif text-2xl text-ink">{{ section.settings.stat_1_value }}</p>
+          <p class="text-xs text-ink-soft mt-1">{{ section.settings.stat_1_label }}</p>
+        </div>
+        <div class="h-8 w-px bg-cream-line"></div>
+        <div>
+          <p class="font-serif text-2xl text-ink">{{ section.settings.stat_2_value }}</p>
+          <p class="text-xs text-ink-soft mt-1">{{ section.settings.stat_2_label }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7 order-1 lg:order-2 relative">
+      <div class="relative mx-auto max-w-md lg:max-w-none">
+        <div class="absolute -inset-4 sm:-inset-6 rounded-[2.5rem] border border-camel/25" aria-hidden="true"></div>
+        <div class="relative aspect-[4/5] sm:aspect-[5/6] overflow-hidden rounded-[2rem] shadow-soft">
+          {% if section.settings.main_image != blank %}
+            <img
+              src="{{ section.settings.main_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.main_image.alt | default: section.settings.heading | escape }}"
+              width="1200" height="1500"
+              class="h-full w-full object-cover"
+              loading="eager"
+            >
+          {% else %}
+            <img
+              src="{{ 'woman-dog-studio.jpg' | asset_url }}"
+              alt="Una mujer abraza con cariño a su perro, vestido con un arnés"
+              class="h-full w-full object-cover"
+              loading="eager"
+            >
+          {% endif %}
+          <div class="absolute inset-0 bg-gradient-to-t from-ink/25 via-transparent to-transparent"></div>
+        </div>
+
+        <div class="absolute -bottom-8 -left-6 sm:-left-10 w-40 sm:w-48 rounded-2xl bg-cream-soft p-3 shadow-card rotate-[-4deg]">
+          {% if section.settings.corner_image != blank %}
+            <img src="{{ section.settings.corner_image | image_url: width: 300 }}" alt="" class="aspect-square w-full rounded-xl object-cover">
+          {% else %}
+            <img src="{{ 'dog-city-walk.jpg' | asset_url }}" alt="Perro paseando por la ciudad" class="aspect-square w-full rounded-xl object-cover">
+          {% endif %}
+          <p class="mt-2 text-center font-serif text-xs italic text-ink-soft">{{ section.settings.corner_caption }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "CRÈME · Arneses & accesorios" },
+    { "type": "textarea", "id": "heading", "label": "Titular", "default": "Tu perro no es\nuna mascota más.\nEs familia." },
+    { "type": "textarea", "id": "subheading", "label": "Subtítulo", "default": "Diseñamos arneses pensados para ir juntos: al paseo de cada mañana, al viaje del fin de semana y a cada pequeño instante del día a día que compartís los dos." },
+    { "type": "text", "id": "primary_label", "label": "Botón principal", "default": "Descubrir arneses" },
+    { "type": "url", "id": "primary_link", "label": "Enlace botón principal" },
+    { "type": "text", "id": "secondary_label", "label": "Botón secundario", "default": "Conocer nuestra historia" },
+    { "type": "url", "id": "secondary_link", "label": "Enlace botón secundario" },
+    { "type": "image_picker", "id": "main_image", "label": "Imagen principal" },
+    { "type": "image_picker", "id": "corner_image", "label": "Imagen pequeña (esquina)" },
+    { "type": "text", "id": "corner_caption", "label": "Texto imagen pequeña", "default": "Juntos, todos los días" },
+    { "type": "text", "id": "stat_1_value", "label": "Estadística 1 — valor", "default": "100%" },
+    { "type": "text", "id": "stat_1_label", "label": "Estadística 1 — texto", "default": "Diseñado para ellos" },
+    { "type": "text", "id": "stat_2_value", "label": "Estadística 2 — valor", "default": "+480" },
+    { "type": "text", "id": "stat_2_label", "label": "Estadística 2 — texto", "default": "Familias CRÈME" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

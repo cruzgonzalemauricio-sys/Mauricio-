@@ -1,0 +1,17 @@
+<section class="py-16 sm:py-24">
+  <div class="container-brand max-w-2xl mx-auto">
+    <h1 class="font-serif text-3xl text-ink mb-10">Tus direcciones</h1>
+
+    {% for address in customer.addresses %}
+      <div class="creme-cart-row">
+        <div class="creme-cart-info">
+          <p class="text-ink">{{ address | format_address }}</p>
+        </div>
+      </div>
+    {% else %}
+      <p class="text-ink-soft">Todavía no tienes direcciones guardadas.</p>
+    {% endfor %}
+
+    <a href="{{ routes.account_url }}" class="btn-secondary mt-8 inline-flex">&larr; Volver a mi cuenta</a>
+  </div>
+</section>

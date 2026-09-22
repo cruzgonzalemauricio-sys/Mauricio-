@@ -1,0 +1,55 @@
+<section id="historia" class="py-20 sm:py-28">
+  <div class="container-brand grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="relative order-2 lg:order-1 fade-up">
+      <div class="aspect-[4/5] max-w-md mx-auto lg:max-w-none overflow-hidden rounded-[2rem] shadow-soft">
+        {% if section.settings.image != blank %}
+          <img
+            src="{{ section.settings.image | image_url: width: 1200 }}"
+            alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}"
+            width="1200" height="1500"
+            loading="lazy"
+            class="h-full w-full object-cover"
+          >
+        {% else %}
+          <img src="{{ 'dog-portrait-plaid.jpg' | asset_url }}" alt="Retrato cercano de un perro con su arnés" class="h-full w-full object-cover" loading="lazy">
+        {% endif %}
+      </div>
+      <div aria-hidden="true" class="absolute -z-10 -bottom-6 -right-6 h-full w-full max-w-md mx-auto lg:max-w-none rounded-[2rem] border border-camel/30"></div>
+    </div>
+
+    <div class="order-1 lg:order-2 fade-up" style="transition-delay: 120ms">
+      <p class="eyebrow mb-5">{{ section.settings.eyebrow }}</p>
+      <h2 class="font-serif text-3xl sm:text-4xl leading-tight text-ink text-balance">
+        {{ section.settings.heading | newline_to_br }}
+      </h2>
+      <div class="mt-7 space-y-4 text-[15px] leading-relaxed text-ink-soft max-w-lg">
+        {{ section.settings.body }}
+      </div>
+      <p class="mt-8 font-serif italic text-lg text-camel-deep">{{ section.settings.quote }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Nuestra historia",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Imagen" },
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Nuestra historia" },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Titular",
+      "default": "No creamos una marca para perros.\nCreamos una marca para quienes saben\nque su perro es familia."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Texto",
+      "default": "<p>CRÈME nació de algo muy simple: la idea de que un perro no es un complemento de la vida, es parte de ella. Se sienta a la mesa sin sentarse, decide los planes del fin de semana y ocupa un lugar en cada foto de familia.</p><p>Por eso diseñamos cada arnés con la misma atención con la que elegiríamos algo para nosotros mismos: materiales que respetan su piel, formas que respetan su libertad de movimiento, y un diseño que respeta el buen gusto de quien pasea al otro extremo de la correa.</p>"
+    },
+    { "type": "text", "id": "quote", "label": "Cita final", "default": "Porque ellos también forman parte de cada aventura." }
+  ],
+  "presets": [{ "name": "Nuestra historia" }]
+}
+{% endschema %}

@@ -1,0 +1,103 @@
+<section class="py-16 sm:py-24">
+  <div class="container-brand grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+    <div class="creme-product-gallery">
+      {% if product.featured_image %}
+        <div class="aspect-[4/5] overflow-hidden rounded-[2rem] shadow-soft">
+          <img
+            id="ProductMainImage"
+            src="{{ product.featured_image | image_url: width: 1200 }}"
+            alt="{{ product.featured_image.alt | default: product.title | escape }}"
+            width="1200" height="1500"
+            class="h-full w-full object-cover"
+          >
+        </div>
+      {% endif %}
+      {% if product.images.size > 1 %}
+        <div class="creme-thumb-row">
+          {% for image in product.images %}
+            <button type="button" class="creme-thumb" data-thumb-src="{{ image | image_url: width: 1200 }}">
+              <img src="{{ image | image_url: width: 200 }}" alt="" width="80" height="80" loading="lazy">
+            </button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div>
+      <p class="eyebrow mb-4">{{ product.vendor | default: shop.name }}</p>
+      <h1 class="font-serif text-3xl sm:text-4xl text-ink text-balance">{{ product.title }}</h1>
+
+      <p class="mt-4 text-2xl text-ink" id="ProductPrice">
+        {{ product.selected_or_first_available_variant.price | money }}
+        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+          <s class="text-ink-soft text-base ml-2">{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>
+        {% endif %}
+      </p>
+
+      <div class="mt-6 text-[15px] leading-relaxed text-ink-soft">
+        {{ product.description }}
+      </div>
+
+      {% form 'product', product, id: 'ProductForm', class: 'creme-product-form' %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="ProductVariantId">
+
+        {% unless product.has_only_default_variant %}
+          {% for option in product.options_with_values %}
+            <div class="creme-option">
+              <label for="Option-{{ option.position }}">{{ option.name }}</label>
+              <select id="Option-{{ option.position }}" class="creme-select" data-option-index="{{ option.position0 }}">
+                {% for value in option.values %}
+                  <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endfor %}
+        {% endunless %}
+
+        <div class="creme-option">
+          <label for="Quantity">Cantidad</label>
+          <input type="number" id="Quantity" name="quantity" value="1" min="1" class="creme-qty">
+        </div>
+
+        <button
+          type="submit"
+          class="btn-primary w-full sm:w-auto"
+          {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+        >
+          {% if product.selected_or_first_available_variant.available == false %}
+            Agotado
+          {% else %}
+            Añadir al carrito
+          {% endif %}
+        </button>
+      {% endform %}
+
+      <div class="mt-10 pt-8 border-t border-cream-line grid grid-cols-3 gap-4 text-center">
+        <div>
+          <p class="font-serif text-lg text-ink">Comodidad</p>
+          <p class="mt-1 text-xs text-ink-soft">Materiales suaves</p>
+        </div>
+        <div>
+          <p class="font-serif text-lg text-ink">Ajuste</p>
+          <p class="mt-1 text-xs text-ink-soft">A su medida</p>
+        </div>
+        <div>
+          <p class="font-serif text-lg text-ink">Diseño</p>
+          <p class="mt-1 text-xs text-ink-soft">Cuidado al detalle</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Product JSON used by creme-theme.js to sync image/price on variant change {%- endcomment -%}
+  <script type="application/json" id="ProductVariantsJson">
+    {{ product.variants | json }}
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Producto",
+  "settings": []
+}
+{% endschema %}

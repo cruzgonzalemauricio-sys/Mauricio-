@@ -1,0 +1,103 @@
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-500 bg-transparent py-5" data-header>
+  <div class="container-brand flex items-center justify-between">
+    <a href="{{ routes.root_url }}" class="flex items-center gap-3 shrink-0">
+      {% if section.settings.logo != blank %}
+        <img
+          src="{{ section.settings.logo | image_url: width: 96 }}"
+          alt="{{ shop.name }}"
+          width="48" height="48"
+          class="rounded-full object-cover transition-all duration-500 h-12 w-12"
+          data-header-logo
+        >
+      {% else %}
+        <img
+          src="{{ 'creme-logo-circle.png' | asset_url }}"
+          alt="{{ shop.name }}"
+          width="48" height="48"
+          class="rounded-full object-cover transition-all duration-500 h-12 w-12"
+          data-header-logo
+        >
+      {% endif %}
+      <span class="hidden sm:block font-serif text-xl tracking-wide text-ink">{{ shop.name }}</span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-10">
+      {% for block in section.blocks %}
+        {% if block.type == 'link' %}
+          <a
+            href="{{ block.settings.link }}"
+            class="text-[13px] font-medium tracking-wide text-ink-soft hover:text-ink transition-colors relative group"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.label }}
+            <span class="absolute -bottom-1.5 left-0 h-px w-0 bg-camel-deep transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+
+    <div class="flex items-center gap-4 sm:gap-5 text-ink">
+      <a href="{{ routes.search_url }}" aria-label="Buscar" class="hidden sm:inline-flex hover:text-camel-deep transition-colors">
+        {% render 'icon', name: 'search' %}
+      </a>
+      <a href="{{ routes.account_url }}" aria-label="Mi cuenta" class="hidden sm:inline-flex hover:text-camel-deep transition-colors">
+        {% render 'icon', name: 'user' %}
+      </a>
+      <a href="{{ routes.cart_url }}" aria-label="Carrito" class="inline-flex hover:text-camel-deep transition-colors relative">
+        {% render 'icon', name: 'bag' %}
+        <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-camel-deep text-[9px] font-semibold text-cream-soft" data-cart-count>
+          {{ cart.item_count }}
+        </span>
+      </a>
+
+      <button aria-label="Abrir menú" class="lg:hidden inline-flex flex-col gap-1.5 p-1" data-menu-toggle type="button">
+        <span class="h-px w-6 bg-ink transition-all" data-bar-1></span>
+        <span class="h-px w-6 bg-ink transition-all" data-bar-2></span>
+        <span class="h-px w-6 bg-ink transition-all" data-bar-3></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="lg:hidden fixed inset-x-0 top-[64px] bottom-0 bg-cream-soft transition-all duration-400 ease-out opacity-0 -translate-y-3 pointer-events-none" data-mobile-menu>
+    <nav class="container-brand flex flex-col gap-1 pt-6">
+      {% for block in section.blocks %}
+        {% if block.type == 'link' %}
+          <a href="{{ block.settings.link }}" class="py-4 border-b border-cream-line text-lg font-serif text-ink">
+            {{ block.settings.label }}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Cabecera",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Enlace de menú",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Texto", "default": "Enlace" },
+        { "type": "url", "id": "link", "label": "URL" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "link", "settings": { "label": "Arneses" } },
+      { "type": "link", "settings": { "label": "Nuestra historia" } },
+      { "type": "link", "settings": { "label": "Guía de tallas" } },
+      { "type": "link", "settings": { "label": "Contacto" } }
+    ]
+  }
+}
+{% endschema %}

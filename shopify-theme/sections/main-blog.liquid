@@ -1,0 +1,22 @@
+<section class="py-16 sm:py-24">
+  <div class="container-brand">
+    <h1 class="font-serif text-3xl sm:text-4xl text-ink mb-10 text-center">{{ blog.title }}</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for article in blog.articles %}
+        <a href="{{ article.url }}" class="block">
+          {% if article.image %}
+            <div class="aspect-[4/3] overflow-hidden rounded-2xl mb-4">
+              <img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.title | escape }}" width="600" height="450" loading="lazy" class="h-full w-full object-cover">
+            </div>
+          {% endif %}
+          <h2 class="font-serif text-lg text-ink">{{ article.title }}</h2>
+          <p class="mt-2 text-sm text-ink-soft">{{ article.excerpt_or_content | strip_html | truncatewords: 20 }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Blog", "settings": [] }
+{% endschema %}

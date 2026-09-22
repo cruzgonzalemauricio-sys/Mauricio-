@@ -1,0 +1,32 @@
+<section class="py-16 sm:py-24">
+  <div class="container-brand max-w-md mx-auto">
+    <h1 class="font-serif text-3xl text-ink text-center mb-10">Iniciar sesión</h1>
+
+    {% form 'customer_login' %}
+      {% if form.errors %}
+        <p class="text-sm text-red-700 mb-4">{{ form.errors | default_errors }}</p>
+      {% endif %}
+
+      <div class="creme-option">
+        <label for="CustomerEmail">Email</label>
+        <input type="email" name="customer[email]" id="CustomerEmail" class="creme-select" required autocomplete="email">
+      </div>
+
+      {% if form.password_needed %}
+        <div class="creme-option">
+          <label for="CustomerPassword">Contraseña</label>
+          <input type="password" name="customer[password]" id="CustomerPassword" class="creme-select" autocomplete="current-password">
+        </div>
+      {% endif %}
+
+      <button type="submit" class="btn-primary w-full mt-4">Entrar</button>
+
+      <p class="mt-6 text-center text-sm text-ink-soft">
+        <a href="{{ routes.account_recover_url }}" class="underline">¿Has olvidado tu contraseña?</a>
+      </p>
+      <p class="mt-2 text-center text-sm text-ink-soft">
+        ¿No tienes cuenta? <a href="{{ routes.account_register_url }}" class="underline">Crear cuenta</a>
+      </p>
+    {% endform %}
+  </div>
+</section>

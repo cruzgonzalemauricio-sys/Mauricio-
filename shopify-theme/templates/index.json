@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "hero": { "type": "hero" },
+    "brand-statement": { "type": "brand-statement" },
+    "featured-products": { "type": "featured-products" },
+    "adventures": { "type": "adventures" },
+    "why-us": { "type": "why-us" },
+    "our-story": { "type": "our-story" },
+    "testimonials": { "type": "testimonials" },
+    "instagram-community": { "type": "instagram-community" },
+    "newsletter": { "type": "newsletter" }
+  },
+  "order": [
+    "hero",
+    "brand-statement",
+    "featured-products",
+    "adventures",
+    "why-us",
+    "our-story",
+    "testimonials",
+    "instagram-community",
+    "newsletter"
+  ]
+}

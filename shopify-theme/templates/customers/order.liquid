@@ -1,0 +1,27 @@
+<section class="py-16 sm:py-24">
+  <div class="container-brand max-w-2xl mx-auto">
+    <h1 class="font-serif text-3xl text-ink mb-2">Pedido {{ order.name }}</h1>
+    <p class="text-sm text-ink-soft mb-10">{{ order.created_at | date: '%d de %B, %Y' }}</p>
+
+    <div class="creme-cart-table">
+      {% for line_item in order.line_items %}
+        <div class="creme-cart-row">
+          {% if line_item.image %}
+            <img src="{{ line_item.image | image_url: width: 200 }}" alt="{{ line_item.title | escape }}" width="80" height="80" class="creme-cart-thumb">
+          {% endif %}
+          <div class="creme-cart-info">
+            <p class="font-serif text-lg text-ink">{{ line_item.title }}</p>
+            <p class="text-xs text-ink-soft mt-1">Cantidad: {{ line_item.quantity }}</p>
+          </div>
+          <p class="creme-cart-line-total">{{ line_item.final_line_price | money }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="creme-cart-summary">
+      <p class="font-serif text-xl text-ink">Total: {{ order.total_price | money }}</p>
+    </div>
+
+    <a href="{{ routes.account_url }}" class="btn-secondary mt-8 inline-flex">&larr; Volver a mi cuenta</a>
+  </div>
+</section>

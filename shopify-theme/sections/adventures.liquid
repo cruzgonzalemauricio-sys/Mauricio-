@@ -22,6 +22,21 @@
                 loading="lazy"
                 class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               >
+            {% else %}
+              {% case forloop.index0 %}
+                {% when 0 %}{% assign fallback_image = 'dog-coffee-companion.jpg' %}
+                {% when 1 %}{% assign fallback_image = 'dog-city-walk.jpg' %}
+                {% when 2 %}{% assign fallback_image = 'kitchen-family.jpg' %}
+                {% when 3 %}{% assign fallback_image = 'dog-home-counter.jpg' %}
+                {% else %}{% assign fallback_image = 'dog-portrait-plaid.jpg' %}
+              {% endcase %}
+              <img
+                src="{{ fallback_image | asset_url }}"
+                alt="{{ block.settings.label | escape }}"
+                width="900" height="1125"
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              >
             {% endif %}
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/0 to-transparent"></div>

@@ -22,6 +22,24 @@
               loading="lazy"
               class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
             >
+          {% else %}
+            {% case forloop.index0 %}
+              {% when 0 %}{% assign fallback_image = 'dog-portrait-plaid.jpg' %}
+              {% when 1 %}{% assign fallback_image = 'product-tartan-set.jpg' %}
+              {% when 2 %}{% assign fallback_image = 'dog-coffee-companion.jpg' %}
+              {% when 3 %}{% assign fallback_image = 'kitchen-family.jpg' %}
+              {% when 4 %}{% assign fallback_image = 'dog-city-walk.jpg' %}
+              {% when 5 %}{% assign fallback_image = 'product-olive-stool.jpg' %}
+              {% when 6 %}{% assign fallback_image = 'dog-home-counter.jpg' %}
+              {% else %}{% assign fallback_image = 'product-olive-macro.jpg' %}
+            {% endcase %}
+            <img
+              src="{{ fallback_image | asset_url }}"
+              alt="Momento compartido por la comunidad"
+              width="500" height="500"
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+            >
           {% endif %}
           <div class="absolute inset-0 flex items-center justify-center gap-1.5 bg-ink/0 text-cream-soft opacity-0 transition-all duration-300 group-hover:bg-ink/40 group-hover:opacity-100">
             {% render 'icon', name: 'heart' %}

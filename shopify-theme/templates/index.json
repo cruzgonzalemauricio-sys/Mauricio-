@@ -1,14 +1,274 @@
 {
   "sections": {
-    "hero": { "type": "hero" },
-    "brand-statement": { "type": "brand-statement" },
-    "featured-products": { "type": "featured-products" },
-    "adventures": { "type": "adventures" },
-    "why-us": { "type": "why-us" },
-    "our-story": { "type": "our-story" },
-    "testimonials": { "type": "testimonials" },
-    "instagram-community": { "type": "instagram-community" },
-    "newsletter": { "type": "newsletter" }
+    "hero": {
+      "type": "hero"
+    },
+    "brand-statement": {
+      "type": "brand-statement",
+      "blocks": {
+        "v1": {
+          "type": "value",
+          "settings": {
+            "label": "Familia",
+            "detail": "El vínculo primero"
+          }
+        },
+        "v2": {
+          "type": "value",
+          "settings": {
+            "label": "Diseño",
+            "detail": "Estética cuidada"
+          }
+        },
+        "v3": {
+          "type": "value",
+          "settings": {
+            "label": "Confianza",
+            "detail": "Ajuste seguro"
+          }
+        },
+        "v4": {
+          "type": "value",
+          "settings": {
+            "label": "Aventura",
+            "detail": "Listos para salir"
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3",
+        "v4"
+      ]
+    },
+    "featured-products": {
+      "type": "featured-products",
+      "blocks": {
+        "p1": {
+          "type": "product",
+          "settings": {
+            "title": "Arnés Tartán",
+            "description": "Nuestro diseño más querido: un estampado de cuadros cálido para los paseos de cada día.",
+            "price": "Desde 39€ (ejemplo)",
+            "color_1": "#9C8258",
+            "color_2": "#EDE4CF"
+          }
+        },
+        "p2": {
+          "type": "product",
+          "settings": {
+            "title": "Arnés Pata de Camel",
+            "description": "Un print propio de huellas sobre tono camel, a juego con correa y bolsa dispensadora.",
+            "price": "Desde 39€ (ejemplo)",
+            "color_1": "#C9A876",
+            "color_2": "#6B6F45"
+          }
+        },
+        "p3": {
+          "type": "product",
+          "settings": {
+            "title": "Arnés Verde Oliva",
+            "description": "Líneas limpias y un verde profundo para quienes prefieren lo discreto y lo resistente.",
+            "price": "Desde 39€ (ejemplo)",
+            "color_1": "#6B6F45",
+            "color_2": "#DCC9A3"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ]
+    },
+    "adventures": {
+      "type": "adventures",
+      "blocks": {
+        "m1": {
+          "type": "moment",
+          "settings": {
+            "label": "Compañía"
+          }
+        },
+        "m2": {
+          "type": "moment",
+          "settings": {
+            "label": "Paseo"
+          }
+        },
+        "m3": {
+          "type": "moment",
+          "settings": {
+            "label": "En familia"
+          }
+        },
+        "m4": {
+          "type": "moment",
+          "settings": {
+            "label": "Hogar"
+          }
+        },
+        "m5": {
+          "type": "moment",
+          "settings": {
+            "label": "Cada día"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5"
+      ]
+    },
+    "why-us": {
+      "type": "why-us",
+      "blocks": {
+        "r1": {
+          "type": "reason",
+          "settings": {
+            "title": "Comodidad",
+            "text": "Materiales suaves y transpirables, pensados para llevarlo puesto horas sin molestar."
+          }
+        },
+        "r2": {
+          "type": "reason",
+          "settings": {
+            "title": "Ajuste a medida",
+            "text": "Varios puntos de regulación para que quede firme sin apretar, sea cual sea su forma."
+          }
+        },
+        "r3": {
+          "type": "reason",
+          "settings": {
+            "title": "Seguridad",
+            "text": "Cierres reforzados y enganches pensados para caminar tranquilos, en la ciudad o en el campo."
+          }
+        },
+        "r4": {
+          "type": "reason",
+          "settings": {
+            "title": "Diseño cuidado",
+            "text": "Estampados propios y colores atemporales: un accesorio que también os gusta llevar a vosotros."
+          }
+        },
+        "r5": {
+          "type": "reason",
+          "settings": {
+            "title": "Resistencia",
+            "text": "Confeccionados para el uso diario, del parque a la lluvia y de la lluvia a casa."
+          }
+        },
+        "r6": {
+          "type": "reason",
+          "settings": {
+            "title": "Pensado para el día a día",
+            "text": "Fácil de poner y quitar, para que el momento antes del paseo sea siempre sencillo."
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6"
+      ]
+    },
+    "our-story": {
+      "type": "our-story"
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Desde que tiene el arnés CRÈME, Milo se deja poner el arnés solo con verlo. Se nota que está pensado para que estén cómodos de verdad.",
+            "name": "Ejemplo de testimonio",
+            "pet": "Milo · Caniche toy",
+            "is_placeholder": true
+          }
+        },
+        "t2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Lo que más me gusta es que no parece un accesorio de tienda de mascotas: es bonito, combina con todo y se ve que está bien hecho.",
+            "name": "Ejemplo de testimonio",
+            "pet": "Nala · Bichón",
+            "is_placeholder": true
+          }
+        },
+        "t3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Viajamos mucho con ella y este arnés ha aguantado playa, montaña y ciudad sin perder color. Y encima, precioso en fotos.",
+            "name": "Ejemplo de testimonio",
+            "pet": "Coco · Mestiza",
+            "is_placeholder": true
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ]
+    },
+    "instagram-community": {
+      "type": "instagram-community",
+      "blocks": {
+        "ph1": {
+          "type": "photo",
+          "settings": {}
+        },
+        "ph2": {
+          "type": "photo",
+          "settings": {}
+        },
+        "ph3": {
+          "type": "photo",
+          "settings": {}
+        },
+        "ph4": {
+          "type": "photo",
+          "settings": {}
+        },
+        "ph5": {
+          "type": "photo",
+          "settings": {}
+        },
+        "ph6": {
+          "type": "photo",
+          "settings": {}
+        },
+        "ph7": {
+          "type": "photo",
+          "settings": {}
+        },
+        "ph8": {
+          "type": "photo",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "ph1",
+        "ph2",
+        "ph3",
+        "ph4",
+        "ph5",
+        "ph6",
+        "ph7",
+        "ph8"
+      ]
+    },
+    "newsletter": {
+      "type": "newsletter"
+    }
   },
   "order": [
     "hero",
